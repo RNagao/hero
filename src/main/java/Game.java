@@ -10,8 +10,9 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    Hero hero = new Hero(10, 10);
     Boolean play = Boolean.TRUE;
+
+    Arena arena = new Arena(10, 10);
 
     public Game() {
         try {
@@ -32,40 +33,21 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
-    }
-
-    private void moveHero(Position position) {
-        hero.setPosition(position);
     }
 
     public void run() throws IOException {
         while(play) {
             draw();
             KeyStroke key = screen.readInput();
-            processKey(key);
-        }
-    }
-
-    private void processKey(KeyStroke key) {
-        KeyType keyType = key.getKeyType();
-        if (keyType == KeyType.ArrowUp) {
-            moveHero(hero.moveUp());
-        } else if (keyType == KeyType.ArrowDown) {
-            moveHero(hero.moveDown());
-        } else if (keyType == KeyType.ArrowLeft) {
-            moveHero(hero.moveLeft());
-        } else if (keyType == KeyType.ArrowRight) {
-            moveHero(hero.moveRight());
-        } else if (keyType == KeyType.Character && key.getCharacter() == 'q') {
-            try {
+            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
                 screen.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-        } else if (keyType == KeyType.EOF) {
-            play = Boolean.FALSE;
+            if (key.getKeyType() == KeyType.EOF) {
+                play = Boolean.FALSE;
+            }
+            arena.processKey(key);
         }
     }
 }
