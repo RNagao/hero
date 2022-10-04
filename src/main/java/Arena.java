@@ -15,12 +15,15 @@ public class Arena {
     private Hero hero;
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
+    private Boolean over = false;
 
     public Arena (int width, int height) {
         this.height = height;
         this.width = width;
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
         hero = new Hero(width / 2, height / 2);
     }
 
@@ -31,6 +34,8 @@ public class Arena {
             wall.draw(graphics);
         for (Coin coin : coins)
             coin.draw(graphics);
+        for (Monster monster : monsters)
+            monster.draw(graphics);
         hero.draw(graphics);
     }
 
@@ -58,6 +63,14 @@ public class Arena {
         return coins;
     }
 
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
+
     private void moveHero(Position position) {
         if (canHeroMove(position)) {
             Coin coin = landCoin(position);
@@ -65,6 +78,21 @@ public class Arena {
                 retrieveCoin(coin);
             }
             hero.setPosition(position);
+            if (verifyMonsterCollisions()){
+                this.over = true;
+            }
+        }
+    }
+
+    private void moveMonsters() {
+        for (Monster monster : monsters) {
+            Position position = monster.move();
+            if (canHeroMove(position)) {
+                monster.setPosition(position);
+            }
+            if (verifyMonsterCollisions()){
+                this.over = true;
+            }
         }
     }
 
@@ -96,6 +124,15 @@ public class Arena {
         this.coins = remainCoins;
     }
 
+    public boolean verifyMonsterCollisions() {
+        for (Monster monster : monsters) {
+            if (monster.getPosition().equals(hero.getPosition())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
         if (key.getKeyType() == KeyType.ArrowUp) {
             moveHero(hero.moveUp());
@@ -106,6 +143,10 @@ public class Arena {
         } else if (key.getKeyType() == KeyType.ArrowRight) {
             moveHero(hero.moveRight());
         }
+        moveMonsters();
     }
 
+    public Boolean getOver() {
+        return over;
+    }
 }

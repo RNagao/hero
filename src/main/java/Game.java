@@ -41,6 +41,10 @@ public class Game {
 
     public void run() throws IOException {
         while(play) {
+            if (arena.getOver()) {
+                System.out.println("\nGame Over: The Hero was caught");
+                screen.close();
+            }
             draw();
             KeyStroke key = screen.readInput();
             if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
