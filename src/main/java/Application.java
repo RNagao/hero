@@ -9,11 +9,11 @@ import java.io.IOException;
 
 public class Application {
     public static void main(String[] args) {
+<<<<<<< HEAD
         Game game = new Game();
         try {
             game.run();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
     }
 }
