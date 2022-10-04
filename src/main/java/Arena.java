@@ -52,13 +52,12 @@ public class Arena {
     }
 
     private boolean canHeroMove(Position position) {
-        if (position.getX() == 0 || position.getX() == width -1) {
-            return Boolean.FALSE;
-        } else if (position.getY() == 0 || position.getY() == height - 1) {
-            return Boolean.FALSE;
-        } else {
-            return Boolean.TRUE;
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position)) {
+                return false;
+            }
         }
+        return true;
     }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
@@ -72,4 +71,5 @@ public class Arena {
             moveHero(hero.moveRight());
         }
     }
+
 }

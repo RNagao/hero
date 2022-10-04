@@ -33,7 +33,7 @@ public class Hero {
     }
 
     public Position getPosition() {
-        return this.position;
+        return position;
     }
 
     public void draw(TextGraphics graphics) throws IOException {
