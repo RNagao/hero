@@ -7,17 +7,20 @@ import com.googlecode.lanterna.input.KeyType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
     private int height;
     private Hero hero;
     private List<Wall> walls;
+    private List<Coin> coins;
 
     public Arena (int width, int height) {
         this.height = height;
         this.width = width;
         this.walls = createWalls();
+        this.coins = createCoins();
         hero = new Hero(width / 2, height / 2);
     }
 
@@ -26,6 +29,8 @@ public class Arena {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         for (Wall wall : walls)
             wall.draw(graphics);
+        for (Coin coin : coins)
+            coin.draw(graphics);
         hero.draw(graphics);
     }
 
@@ -45,8 +50,20 @@ public class Arena {
         return walls;
     }
 
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return coins;
+    }
+
     private void moveHero(Position position) {
         if (canHeroMove(position)) {
+            Coin coin = landCoin(position);
+            if (coin != null) {
+                retrieveCoin(coin);
+            }
             hero.setPosition(position);
         }
     }
@@ -58,6 +75,25 @@ public class Arena {
             }
         }
         return true;
+    }
+
+    private Coin landCoin(Position position) {
+        for (Coin coin : coins) {
+            if (coin.getPosition().equals(position)) {
+                return coin;
+            }
+        }
+        return null;
+    }
+
+    private void retrieveCoin(Coin coinRetrived) {
+        List<Coin> remainCoins = new ArrayList<>();
+        for (Coin coin : coins) {
+            if (!coin.equals(coinRetrived)) {
+                remainCoins.add(coin);
+            }
+        }
+        this.coins = remainCoins;
     }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {
