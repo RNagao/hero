@@ -12,7 +12,7 @@ public class Game {
     private Screen screen;
     Boolean play = Boolean.TRUE;
 
-    Arena arena = new Arena(10, 10);
+    private Arena arena;
 
     public Game() {
         try {
@@ -26,6 +26,8 @@ public class Game {
             screen.startScreen();
             screen.doResizeIfNecessary();
 
+            arena = new Arena(10, 10);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +35,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        arena.draw(screen);
+        arena.draw(screen.newTextGraphics());
         screen.refresh();
     }
 
