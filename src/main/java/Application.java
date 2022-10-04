@@ -14,5 +14,6 @@ public class Application {
             game.run();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
     }
 }
