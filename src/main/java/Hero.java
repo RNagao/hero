@@ -4,27 +4,27 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 
 public class Hero {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
     public Hero(int column, int row) {
         x = column;
         y = row;
     }
 
-    public void HeroRight() {
+    public void moveRight() {
         x += 1;
     }
 
-    public void HeroLeft() {
+    public void moveLeft() {
         x -= 1;
     }
 
-    public void HeroUp() {
+    public void moveUp() {
         y -= 1;
     }
 
-    public void HeroDown() {
+    public void moveDown() {
         y += 1;
     }
 

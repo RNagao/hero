@@ -48,13 +48,13 @@ public class Game {
     private void processKey(KeyStroke key) {
         KeyType keyType = key.getKeyType();
         if (keyType == KeyType.ArrowUp) {
-            hero.HeroUp();
+            hero.moveUp();
         } else if (keyType == KeyType.ArrowDown) {
-            hero.HeroDown();
+            hero.moveDown();
         } else if (keyType == KeyType.ArrowLeft) {
-            hero.HeroLeft();
+            hero.moveLeft();
         } else if (keyType == KeyType.ArrowRight) {
-            hero.HeroRight();
+            hero.moveRight();
         } else if (keyType == KeyType.Character && key.getCharacter() == 'q') {
             try {
                 screen.close();
