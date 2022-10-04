@@ -6,7 +6,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 
 public class Wall extends Element{
-    private Position position;
 
     public Wall(int x, int y) {
         super(x, y);

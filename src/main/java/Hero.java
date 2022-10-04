@@ -6,7 +6,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 
 public class Hero extends Element{
-    private Position position;
     public Hero(int x, int y) {
         super(x, y);
     }
