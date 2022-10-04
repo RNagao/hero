@@ -32,6 +32,10 @@ public class Hero {
         this.position = position;
     }
 
+    public Position getPosition() {
+        return this.position;
+    }
+
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
