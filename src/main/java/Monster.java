@@ -14,7 +14,7 @@ public class Monster extends Element{
 
     public Position move() {
         Random random = new Random();
-        int option = random.nextInt(8);
+        int option = random.nextInt(9);
 
         switch (option) {
             case 0:
@@ -34,7 +34,7 @@ public class Monster extends Element{
             case 7:
                 return new Position(this.getPosition().getX() - 1, this.getPosition().getY());
             default:
-                return null;
+                return new Position(this.getPosition().getX(), this.getPosition().getY());
         }
     }
 
