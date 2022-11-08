@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'groovy'
     id 'application'
     id 'info.solidsoft.pitest' version '1.6.0'
 }
@@ -19,6 +20,8 @@ dependencies {
     // https://mvnrepository.com/artifact/com.googlecode.lanterna/lanterna
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.0'
     testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

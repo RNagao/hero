@@ -2,6 +2,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -18,10 +19,5 @@ public class ArenaTest {
         arena.draw(stubGraphics);
         Mockito.verify(stubGraphics, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#336699"));
         Mockito.verify(stubGraphics, Mockito.times(1)).fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-    }
-
-    @Test
-    public void verifyMonsterCollisions() {
-
     }
 }
